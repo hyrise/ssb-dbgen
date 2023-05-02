@@ -8,9 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #if (defined(_POSIX_)||!defined(WIN32))
-/*
 #include <unistd.h>
-*/
 #else
 #include "process.h"
 #endif /* WIN32 */

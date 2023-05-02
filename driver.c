@@ -11,6 +11,8 @@
 #ifndef DOS
 #include <unistd.h>
 #include <sys/wait.h>
+#include <stdlib.h>
+#include <getopt.h>
 #endif
 
 #endif /* WIN32 */

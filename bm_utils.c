@@ -38,7 +38,7 @@
 #include <ctype.h>
 #include <math.h>
 #ifndef _POSIX_SOURCE
-#include <malloc.h>
+#include <stdlib.h>
 #endif /* POSIX_SOURCE */
 
 #include <fcntl.h>
