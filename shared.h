@@ -117,7 +117,8 @@
 #define  PHONE_LEN     15
 
 #ifdef SSBM
-#define  MAXAGG_LEN    10    /* max component length for a agg str */
+// Modified from original. See https://github.com/electrum/ssb-dbgen/issues/6
+#define  MAXAGG_LEN    32    /* max component length for a agg str */
 
 #else
 #define  MAXAGG_LEN    20    /* max component length for a agg str */
