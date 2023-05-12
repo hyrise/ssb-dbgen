@@ -384,7 +384,7 @@ tbl_open(int tbl, char *mode)
     if (S_ISFIFO(fstats.st_mode))
         {
         retcode =
-            open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT);
+            open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT, 0664);
         f = fdopen(retcode, mode);
         }
     else{
@@ -395,7 +395,7 @@ tbl_open(int tbl, char *mode)
 
 	/*cheng: Betty mentioned about write mode problem here, added 066*/
       retcode =
-		  open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT|O_LARGEFILE,0644);
+		  open(fullpath, ((*mode == 'r')?O_RDONLY:O_WRONLY)|O_CREAT|O_LARGEFILE, 0644);
         f = fdopen(retcode, mode);
 #else
         f = fopen(fullpath, mode);
