@@ -575,7 +575,20 @@ set_state(int table, long sf, long procs, long step, long *extra_rows)
 		}
 	*extra_rows = remainder % procs;
 	if (step > procs)	/* moving to the end to generate updates */
-		tdefs[table].gen_seed(*extra_rows);
+        {
+        // HYRISE: The following line raises a compilation error when adding function prototypes the the tdef gen_seed
+        // member, as they epxect two arguments. All seed generators passed in driver.c (L 230-249) take either two
+        // parameters or are simply 0. Thus, calling this line would always lead to an error. With this assumption, we
+        // simply ensure we fail if this should ever be called (did not happen after generating tables for multiple
+        // scale factors).
+        //
+        // tdefs[table].gen_seed(*extra_rows);
+        //
+        fprintf(stderr,
+            "Did not expect to reach this line. Re-check function prototypes and remove compiler check if necessary. See %s:%d\n",
+            __FILE__, __LINE__);
+        exit(1);
+        }
 
 	return(result);
 }

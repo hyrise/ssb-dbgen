@@ -108,10 +108,12 @@ char *spawn_args[25];
 * flat file print functions; used with -F(lat) option
 */
 #ifdef SSBM
-int pr_cust (customer_t * c, int mode);
-int pr_part (part_t * p, int mode);
-int pr_supp (supplier_t * s, int mode);
-int pr_line (order_t * o, int mode);
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int pr_cust (void * c, int mode);
+int pr_part (void * p, int mode);
+int pr_supp (void * s, int mode);
+int pr_line (void * t, int mode);
 #else
 int pr_cust (customer_t * c, int mode);
 int pr_line (order_t * o, int mode);
@@ -129,13 +131,15 @@ int pr_region (code_t * c, int mode);
 * inline load functions; used with -D(irect) option
 */
 #ifdef SSBM
-int ld_cust (customer_t * c, int mode);
-int ld_part (part_t * p, int mode);
-int ld_supp (supplier_t * s, int mode);
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int ld_cust (void * c, int mode);
+int ld_part (void * p, int mode);
+int ld_supp (void * s, int mode);
 
 /*todo: get rid of ld_order*/
-int ld_line (order_t * o, int mode);
-int ld_order (order_t * o, int mode);
+int ld_line (void * o, int mode);
+int ld_order (void * o, int mode);
 
 #else
 int ld_cust (customer_t * c, int mode);
@@ -198,12 +202,14 @@ int hd_region (FILE * f);
 * data verfication functions; used with -O v option
 */
 #ifdef SSBM
-int vrf_cust (customer_t * c, int mode);
-int vrf_part (part_t * p, int mode);
-int vrf_supp (supplier_t * s, int mode);
-int vrf_line (order_t * o, int mode);
-int vrf_order (order_t * o, int mode);
-int vrf_date (date_t,int mode);
+// HYRISE: change first parameter to void pointer so the tdef verify member can have a function prototype
+// (C2x compatibility).
+int vrf_cust (void * c, int mode);
+int vrf_part (void * p, int mode);
+int vrf_supp (void * s, int mode);
+int vrf_line (void * o, int mode);
+int vrf_order (void * o, int mode);
+int vrf_date (void * d, int mode);
 #else
 int vrf_cust (customer_t * c, int mode);
 int vrf_line (order_t * o, int mode);
@@ -604,7 +610,8 @@ partial (int tbl, int s)
 	
 	if (verbose > 0)
 	{
-		fprintf (stderr, "\tStarting to load stage %d of %d for %s...",
+		// HYRISE: Change format specifier.
+		fprintf (stderr, "\tStarting to load stage %d of %ld for %s...",
 			s, children, tdefs[tbl].comment);
 	}
 	
@@ -633,7 +640,8 @@ pload (int tbl)
 	
 	if (verbose > 0)
 	{
-		fprintf (stderr, "Starting %d children to load %s",
+		// HYRISE: Change format specifier.
+		fprintf (stderr, "Starting %ld children to load %s",
 			children, tdefs[tbl].comment);
 	}
 	for (c = 0; c < children; c++)
@@ -1017,8 +1025,9 @@ main (int ac, char **av)
 			{
 			if (verbose > 0)
 #ifdef SSBM
+				// HYRISE: Change format specifier.
 				fprintf (stderr,
-				"Generating update pair #%d for %s [pid: %d]",
+				"Generating update pair #%ld for %s [pid: %d]",
 				upd_num + 1, tdefs[LINE].comment, DSS_PROC);
 #else
 				fprintf (stderr,
@@ -1117,14 +1126,16 @@ main (int ac, char **av)
 					}
 #endif
 					if (verbose > 0)
-						fprintf (stderr, "%s data for %s [pid: %ld]",
+						// HYRISE: Change format specifier.
+						fprintf (stderr, "%s data for %s [pid: %d]",
 						(validate)?"Validating":"Generating", tdefs[i].comment, DSS_PROC);
 					gen_tbl (i, minrow, rowcnt, upd_num);
 					if (verbose > 0)
 						fprintf (stderr, "done.\n");
 				}
 				if (validate)
-					printf("Validation checksum for %s at %d GB: %0x\n", 
+					// HYRISE: Change format specifier.
+					printf("Validation checksum for %s at %ld GB: %0lx\n",
 						 tdefs[i].name, scale, tdefs[i].vtotal);
 		}
 			

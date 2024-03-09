@@ -2,7 +2,8 @@
 ################
 ## CHANGE NAME OF ANSI COMPILER HERE
 ################
-CC      = gcc
+# HYRISE: Make compiler configurable, default to gcc.
+CC      ?= gcc
 # Current values for DATABASE are: INFORMIX, DB2, TDAT (Teradata)
 #                                  SQLSERVER, SYBASE
 # Current values for MACHINE are:  ATT, DOS, HP, IBM, ICL, MVS, 
@@ -14,8 +15,9 @@ WORKLOAD =SSBM
 #
 # add -EDTERABYTE if orderkey will execeed 32 bits (SF >= 300)
 # and make the appropriate change in gen_schema() of runit.sh
-CFLAGS	= -O -DDBNAME=\"dss\" -D$(MACHINE) -D$(DATABASE) -D$(WORKLOAD)
-LDFLAGS = -O
+# HYRISE: Change -O to -O3. Add -Wno-dangling-else, -Wno-int-to-void-pointer-cast, and -Wno-void-pointer-to-int-cast because they are all over the codebase.
+CFLAGS	= -O3 -DDBNAME=\"dss\" -D$(MACHINE) -D$(DATABASE) -D$(WORKLOAD) -Wno-dangling-else -Wno-int-to-void-pointer-cast -Wno-void-pointer-to-int-cast
+LDFLAGS = -O3
 # The OBJ,EXE and LIB macros will need to be changed for compilation under
 #  Windows NT
 OBJ     = .o
