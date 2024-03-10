@@ -19,22 +19,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
-
-          - name: gcc
+          - name: Ubuntu-GCC
             cc: gcc
             os: ubuntu-latest
 
-          - name: clang
+          - name: Ubuntu-Clang
             cc: clang
             os: ubuntu-latest
 
-          - name: clang-macOS
+          - name: macOS-AppleClang
             cc: clang
-            cxx: clang++
             os: macos-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: System Information
         run: |
