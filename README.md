@@ -1,5 +1,5 @@
 ![Build Status](https://github.com/hyrise/ssb-dbgen/actions/workflows/ci.yml/badge.svg)
-### Note: This fork is adapted for compilation using recent versions of Clang and GCC, which we ensure with a [GitHub action](https://github.com/hyrise/ssb-dbgen/actions).
+### Note: This fork is adapted for compilation using recent versions of Clang and GCC, which we ensure with a [GitHub action](https://github.com/hyrise/ssb-dbgen/actions?branch=master).
 
 # SSB Data Generator
 
