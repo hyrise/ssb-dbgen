@@ -134,8 +134,8 @@ varsub(int qnum, int vnum, int flags)
 				break;
 			case 6:
 				tmp_date = UnifInt(93,97,qnum);
-                sprintf(param[1], "19%d-01-01", tmp_date);
-                // HYRISE: Change format specifier.
+				sprintf(param[1], "19%d-01-01", tmp_date);
+				// HYRISE: Change format specifier.
 				sprintf(param[2], "0.0%ld", UnifInt(2, 9, qnum));
 				sprintf(param[3], "%ld", UnifInt((long)24, (long)25, (long)qnum));
 				param[4][0] = '\0';
