@@ -144,6 +144,7 @@ yes_no(char *prompt)
                 default:
                     printf("Please answer 'yes' or 'no'.\n");
                 }
+            break;
             }
         }
 }
