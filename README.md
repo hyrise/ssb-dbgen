@@ -3,6 +3,7 @@
 
 # SSB Data Generator
 
+```
 Note: In our research paper we use the SSB instead of SSBM
 Version of 2/28/10: 
 Cardinality of supplier fixed to follow benchmark spec: now 2000*SF
@@ -91,3 +92,4 @@ are changed to reflect different set of tables)
 
 ===================== End of README ========================================
 
+```
