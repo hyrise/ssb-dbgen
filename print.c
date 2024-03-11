@@ -129,9 +129,11 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 		dollars = cents / 100;
 		cents %= 100;
 		if (columnar)
-			fprintf(target, "%12ld.%02ld", dollars, cents);
+            // HYRISE: Change format specifier.
+			fprintf(target, "%12d.%02d", dollars, cents);
 		else
-			fprintf(target, "%ld.%02ld", dollars, cents);
+            // HYRISE: Change format specifier.
+			fprintf(target, "%d.%02d", dollars, cents);
 		break;
 	case DT_CHR:
 		if (columnar)
@@ -152,9 +154,11 @@ dbg_print(int format, FILE *target, void *data, int len, int sep)
 
 #ifdef SSBM
 int
-pr_cust(customer_t *c, int mode)
+pr_cust(void *t, int mode)
 {
-static FILE *fp = NULL;
+   static FILE *fp = NULL;
+
+   customer_t *c = (customer_t *) t;
         
    if (fp == NULL)
         fp = print_prep(CUST, 0);
@@ -350,9 +354,10 @@ pr_order_line(order_t *o, int mode)
  */
 #ifdef SSBM
 int
-pr_part(part_t *part, int mode)
+pr_part(void *t, int mode)
 {
     static FILE *p_fp = NULL;
+    part_t *part = (part_t *) t;
 
     if (p_fp == NULL)
 	p_fp = print_prep(PART, 0);
@@ -454,9 +459,11 @@ pr_part_psupp(part_t *part, int mode)
 
 #ifdef SSBM
 int
-pr_supp(supplier_t *supp, int mode)
+pr_supp(void *t, int mode)
 {
     static FILE *fp = NULL;
+
+    supplier_t *supp = (supplier_t *) t;
 
     if (fp == NULL)
         fp = print_prep(SUPP, mode);
@@ -649,8 +656,10 @@ pr_drange(int tbl, long min, long cnt, long num)
 }
 
 #ifdef SSBM
-int pr_date(date_t *d, int mode){
+int pr_date(void *t, int mode){
     static FILE *d_fp = NULL;
+
+    date_t *d = (date_t *) t;
     
     if (d_fp == NULL)
 	d_fp = print_prep(DATE, 0);

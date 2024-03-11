@@ -43,8 +43,10 @@ typedef struct
 
 /* customers.c */
 long mk_cust   PROTO((long n_cust, customer_t * c));
-int pr_cust    PROTO((customer_t * c, int mode));
-int ld_cust    PROTO((customer_t * c, int mode));
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int pr_cust    PROTO((void * c, int mode));
+int ld_cust    PROTO((void * c, int mode));
 
 #ifdef SSBM
 
@@ -125,7 +127,9 @@ typedef struct
 /* order.c */
 long	mk_order	PROTO((long index, order_t * o, long upd_num));
 int		pr_order	PROTO((order_t * o, int mode));
-int		ld_order	PROTO((order_t * o, int mode));
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int		ld_order	PROTO((void * o, int mode));
 void	ez_sparse	PROTO((long index, DSS_HUGE *ok, long seq));
 #ifndef SUPPORT_64BITS
 void	hd_sparse	PROTO((long index, DSS_HUGE *ok, long seq));
@@ -182,8 +186,10 @@ typedef struct
 
 /* parts.c */
 long mk_part   PROTO((long index, part_t * p));
-int pr_part    PROTO((part_t * part, int mode));
-int ld_part    PROTO((part_t * part, int mode));
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int pr_part    PROTO((void * part, int mode));
+int ld_part    PROTO((void * part, int mode));
 
 #ifdef SSBM
 typedef struct
@@ -216,8 +222,10 @@ typedef struct
 
 /* supplier.c */
 long mk_supp   PROTO((long index, supplier_t * s));
-int pr_supp    PROTO((supplier_t * supp, int mode));
-int ld_supp    PROTO((supplier_t * supp, int mode));
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int pr_supp    PROTO((void * supp, int mode));
+int ld_supp    PROTO((void * supp, int mode));
 
 #ifdef SSBM
 /*todo: add new date table*/
@@ -247,8 +255,10 @@ typedef struct
 /* date.c */
 
 long mk_date   PROTO((long index, date_t * d));
-int pr_date    PROTO((date_t * date, int mode));
-int ld_date    PROTO((date_t * date, int mode));
+// HYRISE: change first parameter to void pointer so the tdef loader member can have a function prototype
+// (C2x compatibility).
+int pr_date    PROTO((void * date, int mode));
+int ld_date    PROTO((void * date, int mode));
 
 #endif
 

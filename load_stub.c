@@ -40,7 +40,7 @@ hd_cust (FILE *f)
 }
 
 int 
-ld_cust (customer_t *cp, int mode)
+ld_cust (void *cp, int mode)
 {
     static int count = 0;
 
@@ -64,7 +64,7 @@ hd_part (FILE *f)
 }
 
 int 
-ld_part (part_t *pp, int mode)
+ld_part (void *pp, int mode)
 {
     static int count = 0;
 
@@ -101,7 +101,7 @@ hd_supp (FILE *f)
 }
 
 int 
-ld_supp (supplier_t *sp, int mode)
+ld_supp (void *sp, int mode)
 {
     static int count = 0;
 
@@ -126,7 +126,7 @@ hd_order (FILE *f)
 }
 
 int 
-ld_order (order_t *p, int mode)
+ld_order (void *p, int mode)
 {
     static int count = 0;
 
@@ -138,7 +138,8 @@ ld_order (order_t *p, int mode)
     return(0);
 }
 
-ld_line (order_t *p, int mode)
+int
+ld_line (void *p, int mode)
 {
     static int count = 0;
 
@@ -266,7 +267,7 @@ hd_part_psupp (FILE *f)
 
 #ifdef SSBM
 int
-ld_date (date_t *d, int mode)
+ld_date (void *d, int mode)
 {
     /*do nothing for now*/
     return(0);

@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: ${{matrix.name}}
+    runs-on: ${{matrix.os}}
+    env:
+      CC: ${{matrix.cc}}
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Ubuntu-GCC
+            cc: gcc
+            os: ubuntu-latest
+
+          - name: Ubuntu-Clang
+            cc: clang
+            os: ubuntu-latest
+
+          - name: macOS-AppleClang
+            cc: clang
+            os: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: System Information
+        run: |
+          awk -v a=$(uname) 'BEGIN { a == "Linux" ? system("cat /etc/issue") : system("sw_vers") }'
+          ${CC} --version
+
+      - name: Make
+        run: |
+          make
+
+      - name: Generate SF 0.01 Data
+        run: |
+          mkdir generated_data && cd generated_data
+          ../dbgen -f -s 0.01 -T a -b ../dists.dss

@@ -161,10 +161,11 @@ typedef struct
    char     *name;
    char     *comment;
    long      base;
-   int       (*header) ();
-   int       (*loader[2]) ();
-   long      (*gen_seed)();
-   int       (*verify) ();
+   // HYRISE: add function prototypes (C2x compatibility).
+   int       (*header) (FILE *);
+   int       (*loader[2]) (void *, int);
+   long      (*gen_seed)(int, long);
+   int       (*verify) (void *, int);
    int       child;
    unsigned long vtotal;
 }         tdef;
@@ -359,7 +360,8 @@ extern tdef tdefs[];
  */
 #define  C_SIZE       165
 #define  C_NAME_TAG   "Customer#"
-#define  C_NAME_FMT   "%s%09d"
+// HYRISE: Change format specifier.
+#define  C_NAME_FMT   "%s%09ld"
 #define  C_MSEG_MAX    5
 #define  C_ABAL_MIN   -99999
 #define  C_ABAL_MAX    999999
@@ -515,16 +517,17 @@ int dbg_print(int dt, FILE *tgt, void *data, int len, int eol);
 #define  PR_STRT(fp)   /* any line prep for a record goes here */
 #define  PR_END(fp)    fprintf(fp, "\n")   /* finish the record here */
 
+// HYRISE: Change format specifier.
 #ifdef SSBM
 #define  PR_DATE(tgt, yr, mn, dy)	\
-   sprintf(tgt, "19%02d%02d%02d", yr, mn, dy)
+   sprintf(tgt, "19%02ld%02ld%02ld", yr, mn, dy)
 #else
 #ifdef MDY_DATE
 #define  PR_DATE(tgt, yr, mn, dy)	\
-   sprintf(tgt, "%02d-%02d-19%02d", mn, dy, yr)
+   sprintf(tgt, "%02ld-%02ld-19%02ld", mn, dy, yr)
 #else
 #define  PR_DATE(tgt, yr, mn, dy)	\
-sprintf(tgt, "19%02d-%02d-%02d", yr, mn, dy)
+sprintf(tgt, "19%02ld-%02ld-%02ld", yr, mn, dy)
 #endif /* DATE_FORMAT */
 #endif
 /*
