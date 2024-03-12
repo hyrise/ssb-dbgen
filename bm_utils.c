@@ -130,8 +130,8 @@ yes_no(char *prompt)
 #pragma warning(default:4127)
 #endif 
         printf("%s [Y/N]: ", prompt);
-        // HYRISE: Replace gets() with fgets(). Add loop.
-        while (fgets(reply, sizeof(reply), stdin) != NULL)
+        // HYRISE: Replace gets() with fgets(). Add if.
+        if (fgets(reply, sizeof(reply), stdin) != NULL)
             {
             switch (*reply)
                 {
@@ -144,7 +144,6 @@ yes_no(char *prompt)
                 default:
                     printf("Please answer 'yes' or 'no'.\n");
                 }
-            break;
             }
         }
 }
