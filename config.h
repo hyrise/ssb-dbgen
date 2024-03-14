@@ -101,7 +101,10 @@
 #endif /* LINUX */
 
 #ifdef MAC
+// HYRISE: Only define if not already defined.
+#ifndef _POSIX_SOURCE
 #define _POSIX_SOURCE
+#endif /* _POSIX_SOURCE */
 #define STDLIB_HAS_GETOPT
 #endif /* MAC */
 

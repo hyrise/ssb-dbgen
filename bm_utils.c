@@ -130,17 +130,20 @@ yes_no(char *prompt)
 #pragma warning(default:4127)
 #endif 
         printf("%s [Y/N]: ", prompt);
-        gets(reply);
-        switch (*reply)
+        // HYRISE: Replace gets() with fgets(). Add if.
+        if (fgets(reply, sizeof(reply), stdin) != NULL)
             {
-            case 'y':
-            case 'Y':
-                return (1);
-            case 'n':
-            case 'N':
-                return (0);
-            default:
-                printf("Please answer 'yes' or 'no'.\n");
+            switch (*reply)
+                {
+                case 'y':
+                case 'Y':
+                    return (1);
+                case 'n':
+                case 'N':
+                    return (0);
+                default:
+                    printf("Please answer 'yes' or 'no'.\n");
+                }
             }
         }
 }
@@ -577,7 +580,7 @@ set_state(int table, long sf, long procs, long step, long *extra_rows)
 	if (step > procs)	/* moving to the end to generate updates */
         {
         // HYRISE: The following line raises a compilation error when adding function prototypes the the tdef gen_seed
-        // member, as they epxect two arguments. All seed generators passed in driver.c (L 230-249) take either two
+        // member, as they expect two arguments. All seed generators passed in driver.c (L 230-249) take either two
         // parameters or are simply 0. Thus, calling this line would always lead to an error. With this assumption, we
         // simply ensure we fail if this should ever be called (did not happen after generating tables for multiple
         // scale factors).
