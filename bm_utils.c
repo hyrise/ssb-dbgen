@@ -26,11 +26,6 @@
 #define _GNU_SOURCE
 #endif
 
-// See https://github.com/shellinabox/shellinabox/pull/524
-#ifdef __APPLE__
-#define _XOPEN_SOURCE 600
-#endif
-
 #include "dss.h"
 #include <stdio.h>
 #include <time.h>
@@ -384,8 +379,7 @@ tbl_open(int tbl, char *mode)
         }
     if (S_ISREG(fstats.st_mode) && !force && *mode != 'r' )
         {
-        // Hyrise: use `snprintf` to prevent buffer overflow (for gcc-13).
-        snprintf(prompt, 256, "Do you want to overwrite %s ?", fullpath);
+        sprintf(prompt, "Do you want to overwrite %s ?", fullpath);
         if (!yes_no(prompt))
             exit(0);
         }
