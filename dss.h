@@ -517,10 +517,10 @@ int dbg_print(int dt, FILE *tgt, void *data, int len, int eol);
 #define  PR_STRT(fp)   /* any line prep for a record goes here */
 #define  PR_END(fp)    fprintf(fp, "\n")   /* finish the record here */
 
-// HYRISE: Change format specifier.
+// HYRISE: Change format specifier. Also, use `snprintf` to prevent buffer overflow (for gcc-13).
 #ifdef SSBM
 #define  PR_DATE(tgt, yr, mn, dy)	\
-   sprintf(tgt, "19%02ld%02ld%02ld", yr, mn, dy)
+   snprintf(tgt, DATE_LEN, "19%02ld%02ld%02ld", yr, mn, dy)
 #else
 #ifdef MDY_DATE
 #define  PR_DATE(tgt, yr, mn, dy)	\
