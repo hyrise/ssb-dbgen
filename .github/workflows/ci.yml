@@ -41,7 +41,7 @@ jobs:
 
       - name: Make
         run: |
-          make
+          CFLAGS="-Werror" make
 
       - name: Generate SF 0.01 Data
         run: |
