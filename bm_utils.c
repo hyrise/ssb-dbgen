@@ -358,7 +358,8 @@ long      weight,
 FILE     *
 tbl_open(int tbl, char *mode)
 {
-    char      prompt[256];
+    // HYRISE: increase prompt so `sprintf` does not cause overflows (for gcc-13).
+    char      prompt[512];
     char      fullpath[256];
     FILE     *f;
     struct stat fstats;

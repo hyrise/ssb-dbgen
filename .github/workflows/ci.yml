@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -41,9 +41,14 @@ jobs:
 
       - name: Make
         run: |
-          make
+          CFLAGS="-Werror" make
 
       - name: Generate SF 0.01 Data
         run: |
           mkdir generated_data && cd generated_data
           ../dbgen -f -s 0.01 -T a -b ../dists.dss
+          diff ../sample_data_sf-0.01/customer.tbl customer.tbl
+          diff ../sample_data_sf-0.01/date.tbl date.tbl
+          diff ../sample_data_sf-0.01/lineorder.tbl lineorder.tbl
+          diff ../sample_data_sf-0.01/part.tbl part.tbl
+          diff ../sample_data_sf-0.01/supplier.tbl supplier.tbl

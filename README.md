@@ -1,4 +1,4 @@
-![Build Status](https://github.com/hyrise/ssb-dbgen/actions/workflows/ci.yml/badge.svg?branch=master)
+![Build Status](https://github.com/hyrise/ssb-dbgen/actions/workflows/ci.yml/badge.svg?branch=main)
 ### Note: This fork is adapted for compilation using recent versions of Clang and GCC, which we ensure with a [GitHub action](https://github.com/hyrise/ssb-dbgen/actions).
 
 # SSB Data Generator
